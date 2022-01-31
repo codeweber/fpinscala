@@ -30,6 +30,9 @@ object RNG:
         }
 
     
+    def boolean: Rand[Boolean] =
+        int.map( x => if x < 0 then false else true )
+
     def double: Rand[Double] = 
         nonNegativeInt.map( x => x.toDouble / (Int.MaxValue.toDouble) )
         
