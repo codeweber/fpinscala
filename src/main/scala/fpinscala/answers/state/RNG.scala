@@ -5,8 +5,6 @@ import scala.annotation.tailrec
 trait RNG:
     def nextInt: (Int, RNG)
 
-
-
 object RNG:
 
     import State.*

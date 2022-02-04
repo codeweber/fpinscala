@@ -42,4 +42,5 @@ object Gen:
         def sample =
             self.run
 
+        def unsized: SGen[A] = SGen(_ => self)
 end Gen
