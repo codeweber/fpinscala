@@ -38,6 +38,12 @@ object RNG:
     def ints(n: Int): Rand[List[Int]] =
         sequence(List.fill(n)(int))
 
+
+    def map2[A,B,C](ra: Rand[A], rb: Rand[B])(f: (A,B) => C): Rand[C] =
+        for
+            a <- ra
+            b <- rb
+        yield f(a,b)
     
 end RNG
     
