@@ -20,6 +20,11 @@ object Monoid:
         def zero = None 
 
 
+    def dual[A](m: Monoid[A]): Monoid[A] =
+        new Monoid[A]:
+            def zero = m.zero
+            def op(o1: A, o2: A) = m.op(o2, o1) 
+
     given endoMonoid[A]: Monoid[A => A] with
         def op(e1: (A => A), e2: (A => A)): (A => A) = e1.compose(e2)
         def zero = (a: A) => a: A

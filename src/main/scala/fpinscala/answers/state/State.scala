@@ -1,6 +1,8 @@
 package fpinscala.answers.state
 // Answer to Exercise 6.10
 
+import fpinscala.answers.applicative.Monad
+
 case class State[S, +A](run: S => (A,S)):
 
     def map[B](f: A => B): State[S, B] = 
@@ -47,5 +49,15 @@ object State:
             s <- get
             _ <- set(f(s))
         yield ()
+
+    
+    type StateSA = [S] =>> [A] =>> State[S,A]
+    given stateMonad[S]: Monad[StateSA[S]] with
+        def unit[A](a: => A): State[S,A] = State.unit(a)
+        
+        extension [A](s: State[S,A])
+            override def flatMap[B](f: A => State[S,B]) =
+                s.flatMap(f)
+
 
 end State
