@@ -24,3 +24,13 @@ trait Monad[F[_]] extends Applicative[F]:
         yield f(a,b)
 
 
+    def forever[A,B](a: F[A]): F[B] =
+        lazy val t: F[B] = forever(a)
+        a.flatMap(_ => t)
+
+    def doWhile[A](a: F[A])(cond: A => F[Boolean]): F[Unit] = 
+        for
+            a1 <- a
+            ok <- cond(a1)
+            _  <- if (ok) doWhile(a)(cond) else unit(())
+        yield ()

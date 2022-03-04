@@ -15,7 +15,7 @@ object WC:
               case (Stub(c), Part(l,n,r)) => Part(c ++ l, n, r)
               case (Part(l,n,r), Stub(c)) => Part(l, n, r ++ c)
               case (Part(l1,n1,r1), Part(l2,n2,r2)) => 
-                Part(l1, n1+n2+(if (r1++l1).isEmpty then 0 else 1), r2)
+                Part(l1, n1+n2+(if (r1++l2).isEmpty then 0 else 1), r2)
 
       def zero: WC = Stub("")
 end WC
